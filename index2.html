@@ -25,9 +25,9 @@
     <div id="contenido">
         <h1>Bienvenido</h1>
         <p>Has desbloqueado el contenido secreto.</p>
-        <form id="secretoForm" action="/index" method="POST">
-            <input type="hidden" name="access" value="granted">
-        </form>
+
+
+
     </div>
     
     <script>
@@ -40,9 +40,16 @@
                 inputSequence.shift();
             }
             if (JSON.stringify(inputSequence) === JSON.stringify(sequence)) {
-                document.getElementById("mensaje").style.display = "none";
-                document.getElementById("contenido").style.display = "block";
-                document.getElementById("secretoForm").submit();
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = "index.html";
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "redirect";
+                input.value = "true";
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
             }
         });
     </script>
