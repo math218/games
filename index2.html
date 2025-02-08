@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Secreto</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        #contenido {
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="mensaje">Introduce la secuencia secreta</div>
+    <div id="contenido">
+        <h1>Bienvenido</h1>
+        <p>Has desbloqueado el contenido secreto.</p>
+        <form id="secretoForm" action="/index" method="POST">
+            <input type="hidden" name="access" value="granted">
+        </form>
+    </div>
+    
+    <script>
+        const sequence = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowLeft", "ArrowUp", "ArrowRight"];
+        let inputSequence = [];
+
+        document.addEventListener("keydown", (event) => {
+            inputSequence.push(event.key);
+            if (inputSequence.length > sequence.length) {
+                inputSequence.shift();
+            }
+            if (JSON.stringify(inputSequence) === JSON.stringify(sequence)) {
+                document.getElementById("mensaje").style.display = "none";
+                document.getElementById("contenido").style.display = "block";
+                document.getElementById("secretoForm").submit();
+            }
+        });
+    </script>
+</body>
+</html>
